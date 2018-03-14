@@ -25,7 +25,6 @@ public class DataParser {
             dp.generateSubFiles();
 
         } catch (Exception ex) {
-            // GOTTA CATCH EM ALL
             System.out.println(ex.getMessage());
             ex.printStackTrace(System.out);
         }

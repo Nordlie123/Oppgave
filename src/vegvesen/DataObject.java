@@ -9,7 +9,7 @@ public class DataObject {
     public static void addHeader(String name) {
         if(DataObject.headers == null)
             DataObject.headers = new HashMap<>();
-        DataObject.headers.put(name, DataObject.headers.values().stream().mapToInt( x -> x.intValue() ).max().getAsInt() +1
+        DataObject.headers.put(name, DataObject.headers.values().stream().mapToInt( x -> x.intValue() ).max().getAsInt() +1 );
     }
 
     private String[] data;
