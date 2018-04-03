@@ -16,6 +16,11 @@ public class EurefLocation extends GeoLocation {
         super(lat,lng, "0");
     }
 
+    @Override
+    public float distanceTo(GeoLocation g) {
+        return 0;
+    }
+
     public EurefLocation(String lat, String lng, String hgt) {
         super(lat, lng, hgt);
     }

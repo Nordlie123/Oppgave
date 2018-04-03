@@ -13,8 +13,10 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static java.util.regex.Pattern.*;
 
@@ -29,10 +31,22 @@ public class DataSetRunner {
         this.LoadNextFile(false);
     }
 
+    public Stream stream() {
+        DataSetRunner self = this;
+        return Stream.generate(new Supplier<DataObject>() {
+
+            @Override
+            public DataObject get() {
+                if(self.IsAtEnd())
+                    return null;
+                String[] args = self.next().split(";");
+                args = Arrays.stream(args).map(x -> x.trim()).toArray(String[]::new);
+                return new DataObject(args);
+            }
+        });
+    }
     public String next() {
         try {
-
-
             String line = this.currentFile.readLine();
             int attempts = 0;
             while (line == null) {
