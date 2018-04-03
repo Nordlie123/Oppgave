@@ -2,6 +2,7 @@ package vegvesen;
 
 import vegvesen.datatypes.*;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -175,6 +176,11 @@ public class DatabaseController {
         return s.execute();
     }
 
+    public ResultSet GetAlleVegObjekter() throws SQLException {
+        Statement s = connection.createStatement();
+        return s.executeQuery("SELECT * FROM vegobjekter");
+
+    }
     private Integer getIDForRegion(String r) throws SQLException{
         return getIDForObject("region", r);
     }
@@ -263,6 +269,8 @@ public class DatabaseController {
 
         // Sett kontrolleren for Kategorisøket til å være DatabaseController singleton
         Kategori.controller = DatabaseController.GetInstance();
+        VegObjekt.controller = DatabaseController.GetInstance();
+
 
             try {
                 DataSetRunner dsr = new DataSetRunner("ds/");

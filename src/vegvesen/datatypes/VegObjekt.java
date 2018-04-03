@@ -1,6 +1,10 @@
 package vegvesen.datatypes;
 
+import vegvesen.DatabaseController;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class VegObjekt {
     public int id;
@@ -13,9 +17,21 @@ public class VegObjekt {
     private Fylke fylke;
     public int region_id;
     private Region region;
-
+    public String vegkategori;
+    public int vegnummer;
     public VegObjekt() {
 
+    }
+    public VegObjekt(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("vegobjekt");
+        this.type_id = rs.getInt("type_id");
+        this.versjonid = rs.getInt("versjonid");
+        this.strekningsbeskrivelse = rs.getString("strekningsbeskrivelse");
+        this.kommune_id = rs.getInt("kommune_id");
+        this.fylke_id = rs.getInt("fylke_id");
+        this.region_id = rs.getInt("region_id");
+        this.vegkategori = rs.getString("vegkategori");
+        this.vegnummer = rs.getInt("vegnummer");
     }
 
     /**
@@ -61,5 +77,15 @@ public class VegObjekt {
             }
         }
         return this.region;
+    }
+
+    public static DatabaseController controller;
+    public static VegObjekt[] GetAll() throws SQLException {
+        ArrayList<VegObjekt> arvo = new ArrayList<>();
+        ResultSet rs = controller.GetAlleVegObjekter();
+        while(rs.next()) {
+            arvo.add(new VegObjekt(rs));
+        }
+        return arvo.stream().toArray(VegObjekt[]::new);
     }
 }
