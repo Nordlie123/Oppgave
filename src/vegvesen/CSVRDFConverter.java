@@ -1,7 +1,5 @@
 package vegvesen;
 
-import com.sun.xml.internal.ws.util.StreamUtils;
-
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
@@ -80,9 +78,9 @@ public class CSVRDFConverter {
         try {
             InputStreamReader isr = new InputStreamReader(new FileInputStream("ds/datasplit0.csv"), "ISO-8859-1");
             CSVRDFConverter c = new CSVRDFConverter(isr, 0);
-            Arrays.stream(c.toRDF("veg")).forEach(x -> System.out.println(x));
+            //Arrays.stream(c.toRDF("veg")).forEach(x -> System.out.println(x));
             //Arrays.stream(c.getHeaders()).forEach(x -> System.out.println(x));
-            //c.toRDFFile("ds/datasplit0.rdf", "veg");
+            c.toRDFFile("datasplit0.rdf", "veg");
         } catch(FileNotFoundException fnf) {
             System.out.println(fnf.getMessage());
         } catch(UnsupportedEncodingException fnf) {
